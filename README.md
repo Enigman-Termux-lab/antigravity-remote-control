@@ -20,6 +20,10 @@
 
 </div>
 
+> [!NOTE]
+> 🌐 **Этот проект является частью экосистемы [Enigman Termux Lab](https://github.com/Enigman-Termux-lab)** — открытой лаборатории автономных AI-агентов и системных инструментов для Android Termux.  
+> 📌 **Главный хаб и полный каталог инструментов:** [github.com/Enigman-Termux-lab](https://github.com/Enigman-Termux-lab)
+
 ## 📖 О проекте
 
 Начиная с версии **1.2.6**, в **Antigravity CLI** появилась возможность удалённого управления через защищённый веб-интерфейс `https://antigravity.google.com/r/<session-id>`.
@@ -49,11 +53,11 @@ sequenceDiagram
     Launcher->>CLI: Старт 'agy --remote-control'
     CLI->>Gateway: Регистрация V2 туннеля (WebChannel)
     Gateway-->>CLI: Назначение UUID сессии
+    CLI->>CLI: Запись [remote-control-:uuid-v2] в лог
+    Launcher->>Launcher: Безопасное чтение лога (FileShare.ReadWrite)
     Launcher->>Browser: termux-open-url / Start-Process URL
-    Browser->>Gateway: Подключение Live Sync
-    Gateway-->>Browser: Канал связи установлен
-    Gateway->>CLI: Двусторонняя репликация стейта
-    CLI-->>Browser: Стриминг (Diff, Term, Thinking, Tools)
+    Browser<->>Gateway: Подключение Live Sync
+    Gateway<->>CLI: Двусторонняя репликация стейта (Diff, Term, Thinking, Tools)
     User->>Browser: Управление агентом и подтверждение действий
 ```
 
